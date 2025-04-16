@@ -9,34 +9,34 @@
 
   <div class="max-w-4xl mx-auto p-6">
     <h1 class="text-3xl font-bold mb-4 text-center">🇬🇧 Días Festivos en UK - 2025</h1>
-    <p class="text-center text-sm mb-6 text-gray-600">Recibirás notificaciones 5 días antes de un festivo.</p>
+    <p class="text-center text-sm mb-6 text-gray-600">Recibirás notificaciones 5 y 2 días antes de un festivo.</p>
     <ul id="festivos" class="space-y-4"></ul>
   </div>
 
   <script>
     const festivos = [
-      { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
-      { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
-      { pais: "Inglaterra y Gales", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
-      { pais: "Inglaterra y Gales", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
-      { pais: "Inglaterra y Gales", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional" },
-      { pais: "Inglaterra y Gales", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
-      { pais: "Inglaterra y Gales", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "Summer bank holiday", fecha: "2025-08-04", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "St Andrew’s Day (substitute)", fecha: "2025-12-01", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Battle of the Boyne", fecha: "2025-07-14", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" }
+      { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Inglaterra y Gales", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Inglaterra y Gales", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Inglaterra y Gales", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Inglaterra y Gales", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Inglaterra y Gales", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional", bandera: "🇬🇧" },
+      { pais: "Escocia", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Escocia", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Escocia", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Escocia", nombre: "Summer bank holiday", fecha: "2025-08-04", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Escocia", nombre: "St Andrew’s Day (substitute)", fecha: "2025-12-01", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Escocia", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Escocia", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional", bandera: "🏴" },
+      { pais: "Irlanda del Norte", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Battle of the Boyne", fecha: "2025-07-14", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional", bandera: "🇮🇪" },
+      { pais: "Irlanda del Norte", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional", bandera: "🇮🇪" }
     ];
 
     const lista = document.getElementById("festivos");
@@ -59,14 +59,35 @@
       }
     }
 
-    // Enviar notificación 5 días antes
+    // Enviar notificación 5 días antes o 2 días antes, y ajustarla si cae en fin de semana
     function revisarNotificaciones() {
       const hoy = new Date();
       festivos.forEach(f => {
         const fecha = new Date(f.fecha);
-        const diferencia = Math.ceil((fecha - hoy) / (1000 * 60 * 60 * 24));
-        if (diferencia <= 999) {
-          new Notification("🎉 Se acerca un festivo", {
+        const diferencia5 = Math.ceil((fecha - hoy) / (1000 * 60 * 60 * 24)) - 5;
+        const diferencia2 = Math.ceil((fecha - hoy) / (1000 * 60 * 60 * 24)) - 2;
+
+        // Revisar si la fecha cae en fin de semana
+        const esFinDeSemana = (d) => d === 6 || d === 0;
+
+        // Enviar notificación 5 días antes
+        if (diferencia5 === 0) {
+          let fechaNotificacion = new Date(fecha);
+          if (esFinDeSemana(fechaNotificacion.getDay())) {
+            fechaNotificacion.setDate(fechaNotificacion.getDate() - (fechaNotificacion.getDay() === 0 ? 2 : 1)); // Asegurar que sea el viernes anterior
+          }
+          new Notification(`🎉 Se acerca un festivo ${f.bandera}`, {
+            body: `${f.nombre} en ${f.pais} es el ${f.fecha}`,
+          });
+        }
+
+        // Enviar notificación 2 días antes
+        if (diferencia2 === 0) {
+          let fechaNotificacion = new Date(fecha);
+          if (esFinDeSemana(fechaNotificacion.getDay())) {
+            fechaNotificacion.setDate(fechaNotificacion.getDate() - (fechaNotificacion.getDay() === 0 ? 2 : 1)); // Asegurar que sea el viernes anterior
+          }
+          new Notification(`🎉 Se acerca un festivo ${f.bandera}`, {
             body: `${f.nombre} en ${f.pais} es el ${f.fecha}`,
           });
         }
