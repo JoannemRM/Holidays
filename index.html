@@ -32,8 +32,6 @@
 
   <script>
     const festivos = [
-      { nombre: "Navidad", pais: "España", fecha: "2025-04-29", tipo: "Nacional" },
-      { nombre: "Año Nuevo", pais: "España", fecha: "2025-01-01", tipo: "Nacional" }
       { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
       { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
       { pais: "Inglaterra y Gales", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
@@ -55,8 +53,8 @@
       { pais: "Irlanda del Norte", nombre: "Battle of the Boyne", fecha: "2025-07-14", tipo: "Nacional" },
       { pais: "Irlanda del Norte", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional" },
       { pais: "Irlanda del Norte", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
-      { pais: "Irlanda del Norte", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" }
-
+      { pais: "Irlanda del Norte", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
+      { pais: "España", nombre: "Festivo de Prueba", fecha: "2025-04-29", tipo: "Prueba" }
     ];
 
     const lista = document.getElementById("festivos");
@@ -102,7 +100,7 @@
       notif.querySelector("button").addEventListener("click", () => {
         let notificados = getNotificados();
         notificados.notificaciones[id] = true;
-        guardarNotificados(notificados);
+        guardarNot(grok)ificados(notificados);
       });
     }
 
