@@ -1,82 +1,120 @@
-<script>
-  // Fecha actual
-  const hoy = new Date();
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Festivos UK 2025</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-blue-50 text-gray-800 font-sans">
 
-  // Función para crear fechas de prueba
-  function crearFechaFutura(dias) {
-    const d = new Date();
-    d.setDate(d.getDate() + dias);
-    return d.toISOString().split("T")[0];
-  }
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4 text-center">🇬🇧 Días Festivos en UK - 2025</h1>
+    <p class="text-center text-sm mb-6 text-gray-600">Recibirás notificaciones 5 y 2 días antes de un festivo (solo una vez).</p>
+    <ul id="festivos" class="space-y-4"></ul>
+  </div>
 
-  // Festivos reales + de prueba
-  const festivos = [
-    { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
-    { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
-    // Festivos de prueba
-    { pais: "🔔 Prueba", nombre: "Festivo de prueba (5 días)", fecha: crearFechaFutura(5), tipo: "Prueba" },
-    { pais: "🔔 Prueba", nombre: "Festivo de prueba (2 días)", fecha: crearFechaFutura(2), tipo: "Prueba" },
-  ];
-
-  const lista = document.getElementById("festivos");
-
-  // Mostrar los festivos en la lista
-  festivos.forEach(f => {
-    const item = document.createElement("li");
-    item.className = "bg-white p-4 rounded shadow hover:shadow-lg transition";
-    item.innerHTML = `
-      <div class="text-xl font-semibold">${f.nombre}</div>
-      <div class="text-sm text-gray-600">${f.pais} · ${f.fecha} · ${f.tipo}</div>
-    `;
-    lista.appendChild(item);
-  });
-
-  // Pedir permiso de notificaciones
-  if ("Notification" in window && Notification.permission !== "granted") {
-    Notification.requestPermission();
-  }
-
-  // Almacenamiento local para no repetir notificaciones
-  const notificados = JSON.parse(localStorage.getItem("notificadosFestivos") || "{}");
-
-  function guardarNotificado(id) {
-    notificados[id] = true;
-    localStorage.setItem("notificadosFestivos", JSON.stringify(notificados));
-  }
-
-  function revisarNotificaciones() {
+  <script>
+    // Fecha actual
     const hoy = new Date();
-    const hoyStr = hoy.toISOString().split("T")[0];
 
+    // Crear fechas de prueba
+    function crearFechaFutura(dias) {
+      const d = new Date();
+      d.setDate(d.getDate() + dias);
+      return d.toISOString().split("T")[0];
+    }
+
+    // Festivos reales + de prueba
+    const festivos = [
+      { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
+      { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
+      { pais: "Inglaterra y Gales", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
+      { pais: "Inglaterra y Gales", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
+      { pais: "Inglaterra y Gales", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional" },
+      { pais: "Inglaterra y Gales", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
+      { pais: "Inglaterra y Gales", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "Summer bank holiday", fecha: "2025-08-04", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "St Andrew’s Day (substitute)", fecha: "2025-12-01", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Battle of the Boyne", fecha: "2025-07-14", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
+      { pais: "Irlanda del Norte", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
+
+      // Festivos de prueba
+      { pais: "🔔 Prueba", nombre: "Festivo de prueba (5 días)", fecha: crearFechaFutura(5), tipo: "Prueba" },
+      { pais: "🔔 Prueba", nombre: "Festivo de prueba (2 días)", fecha: crearFechaFutura(2), tipo: "Prueba" },
+    ];
+
+    const lista = document.getElementById("festivos");
+
+    // Mostrar los festivos
     festivos.forEach(f => {
-      const fechaFestivo = new Date(f.fecha);
-      const avisos = [
-        { diasAntes: 5, id: `${f.fecha}_5` },
-        { diasAntes: 2, id: `${f.fecha}_2` }
-      ];
-
-      avisos.forEach(({ diasAntes, id }) => {
-        let fechaAviso = new Date(fechaFestivo);
-        fechaAviso.setDate(fechaAviso.getDate() - diasAntes);
-
-        // Si cae en fin de semana, adelantar al viernes
-        const diaSemana = fechaAviso.getDay();
-        if (diaSemana === 6) fechaAviso.setDate(fechaAviso.getDate() - 1); // sábado
-        else if (diaSemana === 0) fechaAviso.setDate(fechaAviso.getDate() - 2); // domingo
-
-        const fechaAvisoStr = fechaAviso.toISOString().split("T")[0];
-
-        if (hoyStr === fechaAvisoStr && !notificados[id]) {
-          new Notification(`🎉 Festivo en ${f.pais}`, {
-            body: `${f.nombre} es el ${f.fecha}`,
-            requireInteraction: true // No se cierra automáticamente
-          });
-          guardarNotificado(id);
-        }
-      });
+      const item = document.createElement("li");
+      item.className = "bg-white p-4 rounded shadow hover:shadow-lg transition";
+      item.innerHTML = `
+        <div class="text-xl font-semibold">${f.nombre}</div>
+        <div class="text-sm text-gray-600">${f.pais} · ${f.fecha} · ${f.tipo}</div>
+      `;
+      lista.appendChild(item);
     });
-  }
 
-  revisarNotificaciones();
-  setInterval(revisarNotificaciones, 60 * 1000);
-</script>
+    // Pedir permiso para notificaciones
+    if ("Notification" in window && Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
+    // Guardar notificaciones mostradas
+    const notificados = JSON.parse(localStorage.getItem("notificadosFestivos") || "{}");
+
+    function guardarNotificado(id) {
+      notificados[id] = true;
+      localStorage.setItem("notificadosFestivos", JSON.stringify(notificados));
+    }
+
+    function revisarNotificaciones() {
+      const hoy = new Date();
+      const hoyStr = hoy.toISOString().split("T")[0];
+
+      festivos.forEach(f => {
+        const fechaFestivo = new Date(f.fecha);
+        const avisos = [
+          { diasAntes: 5, id: `${f.fecha}_5` },
+          { diasAntes: 2, id: `${f.fecha}_2` }
+        ];
+
+        avisos.forEach(({ diasAntes, id }) => {
+          let fechaAviso = new Date(fechaFestivo);
+          fechaAviso.setDate(fechaAviso.getDate() - diasAntes);
+
+          // Ajustar si cae en sábado o domingo
+          const diaSemana = fechaAviso.getDay();
+          if (diaSemana === 6) fechaAviso.setDate(fechaAviso.getDate() - 1);
+          else if (diaSemana === 0) fechaAviso.setDate(fechaAviso.getDate() - 2);
+
+          const fechaAvisoStr = fechaAviso.toISOString().split("T")[0];
+
+          if (hoyStr === fechaAvisoStr && !notificados[id]) {
+            new Notification(`🎉 Festivo en ${f.pais}`, {
+              body: `${f.nombre} es el ${f.fecha}`,
+              requireInteraction: true // Se mantiene visible hasta que se cierre
+            });
+            guardarNotificado(id);
+          }
+        });
+      });
+    }
+
+    revisarNotificaciones();
+    setInterval(revisarNotificaciones, 60 * 1000);
+  </script>
+</body>
+</html>
