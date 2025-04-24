@@ -52,78 +52,79 @@
       // Festivos de prueba
       { pais: "🔔 Prueba", nombre: "Festivo de prueba (5 días)", fecha: crearFechaFutura(5), tipo: "Prueba" },
       { pais: "🔔 Prueba", nombre: "Festivo de prueba (2 días)", fecha: crearFechaFutura(2), tipo: "Prueba" },
-      // Festivos Nacionales
-      { "pais": "España", "nombre": "Año Nuevo", "fecha": "2025-01-01", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Epifanía del Señor (Día de Reyes)", "fecha": "2025-01-06", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Viernes Santo", "fecha": "2025-04-18", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Fiesta del Trabajo", "fecha": "2025-05-01", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Asunción de la Virgen", "fecha": "2025-08-15", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Fiesta Nacional de España", "fecha": "2025-10-12", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Todos los Santos", "fecha": "2025-11-01", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Día de la Constitución Española", "fecha": "2025-12-06", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Inmaculada Concepción", "fecha": "2025-12-08", "tipo": "Nacional" },
-  { "pais": "España", "nombre": "Navidad", "fecha": "2025-12-25", "tipo": "Nacional" },
-
-  // **Festivos Autonómicos y Locales**
+      const festivos = [
+  // Festivos Nacionales
+  { pais: "España", nombre: "Año Nuevo", fecha: "2025-01-01", tipo: "Nacional" },
+  { pais: "España", nombre: "Epifanía del Señor (Día de Reyes)", fecha: "2025-01-06", tipo: "Nacional" },
+  { pais: "España", nombre: "Viernes Santo", fecha: "2025-04-18", tipo: "Nacional" },
+  { pais: "España", nombre: "Fiesta del Trabajo", fecha: "2025-05-01", tipo: "Nacional" },
+  { pais: "España", nombre: "Asunción de la Virgen", fecha: "2025-08-15", tipo: "Nacional" },
+  { pais: "España", nombre: "Fiesta Nacional de España", fecha: "2025-10-12", tipo: "Nacional" },
+  { pais: "España", nombre: "Todos los Santos", fecha: "2025-11-01", tipo: "Nacional" },
+  { pais: "España", nombre: "Día de la Constitución Española", fecha: "2025-12-06", tipo: "Nacional" },
+  { pais: "España", nombre: "Inmaculada Concepción", fecha: "2025-12-08", tipo: "Nacional" },
+  { pais: "España", nombre: "Navidad", fecha: "2025-12-25", tipo: "Nacional" },
 
   // Andalucía
-  { "pais": "Andalucía", "nombre": "Día de Andalucía", "fecha": "2025-02-28", "tipo": "Autonómico" },
-  { "pais": "Andalucía", "nombre": "Día de la Virgen de la Macarena", "fecha": "2025-12-08", "tipo": "Autonómico" },
+  { pais: "Andalucía", nombre: "Día de Andalucía", fecha: "2025-02-28", tipo: "Autonómico" },
+  { pais: "Andalucía", nombre: "Día de la Virgen de la Macarena", fecha: "2025-12-08", tipo: "Autonómico" },
 
   // Cataluña
-  { "pais": "Cataluña", "nombre": "Día de Sant Jordi", "fecha": "2025-04-23", "tipo": "Autonómico" },
-  { "pais": "Cataluña", "nombre": "Día de la Mercè", "fecha": "2025-09-24", "tipo": "Autonómico" },
+  { pais: "Cataluña", nombre: "Día de Sant Jordi", fecha: "2025-04-23", tipo: "Autonómico" },
+  { pais: "Cataluña", nombre: "Día de la Mercè", fecha: "2025-09-24", tipo: "Autonómico" },
 
   // Comunidad Valenciana
-  { "pais": "Comunidad Valenciana", "nombre": "Las Fallas", "fecha": "2025-03-19", "tipo": "Autonómico" },
-  { "pais": "Comunidad Valenciana", "nombre": "Día de la Comunidad Valenciana", "fecha": "2025-10-09", "tipo": "Autonómico" },
+  { pais: "Comunidad Valenciana", nombre: "Las Fallas", fecha: "2025-03-19", tipo: "Autonómico" },
+  { pais: "Comunidad Valenciana", nombre: "Día de la Comunidad Valenciana", fecha: "2025-10-09", tipo: "Autonómico" },
 
   // Madrid
-  { "pais": "Madrid", "nombre": "Fiesta de la Comunidad de Madrid", "fecha": "2025-05-02", "tipo": "Autonómico" },
-  { "pais": "Madrid", "nombre": "Día de San Isidro", "fecha": "2025-05-15", "tipo": "Autonómico" },
+  { pais: "Madrid", nombre: "Fiesta de la Comunidad de Madrid", fecha: "2025-05-02", tipo: "Autonómico" },
+  { pais: "Madrid", nombre: "Día de San Isidro", fecha: "2025-05-15", tipo: "Autonómico" },
 
   // Galicia
-  { "pais": "Galicia", "nombre": "Día de Galicia", "fecha": "2025-07-25", "tipo": "Autonómico" },
+  { pais: "Galicia", nombre: "Día de Galicia", fecha: "2025-07-25", tipo: "Autonómico" },
 
   // Castilla y León
-  { "pais": "Castilla y León", "nombre": "Día de Castilla y León", "fecha": "2025-04-23", "tipo": "Autonómico" },
+  { pais: "Castilla y León", nombre: "Día de Castilla y León", fecha: "2025-04-23", tipo: "Autonómico" },
 
   // Castilla-La Mancha
-  { "pais": "Castilla-La Mancha", "nombre": "Día de Castilla-La Mancha", "fecha": "2025-05-31", "tipo": "Autonómico" },
+  { pais: "Castilla-La Mancha", nombre: "Día de Castilla-La Mancha", fecha: "2025-05-31", tipo: "Autonómico" },
 
   // País Vasco
-  { "pais": "País Vasco", "nombre": "Día de Euskadi", "fecha": "2025-10-25", "tipo": "Autonómico" },
+  { pais: "País Vasco", nombre: "Día de Euskadi", fecha: "2025-10-25", tipo: "Autonómico" },
 
   // Aragón
-  { "pais": "Aragón", "nombre": "Día de Aragón", "fecha": "2025-04-23", "tipo": "Autonómico" },
+  { pais: "Aragón", nombre: "Día de Aragón", fecha: "2025-04-23", tipo: "Autonómico" },
 
   // Extremadura
-  { "pais": "Extremadura", "nombre": "Día de Extremadura", "fecha": "2025-09-08", "tipo": "Autonómico" },
+  { pais: "Extremadura", nombre: "Día de Extremadura", fecha: "2025-09-08", tipo: "Autonómico" },
 
   // Baleares
-  { "pais": "Islas Baleares", "nombre": "Día de las Islas Baleares", "fecha": "2025-03-01", "tipo": "Autonómico" },
+  { pais: "Islas Baleares", nombre: "Día de las Islas Baleares", fecha: "2025-03-01", tipo: "Autonómico" },
 
   // Asturias
-  { "pais": "Asturias", "nombre": "Día de Asturias", "fecha": "2025-09-08", "tipo": "Autonómico" },
+  { pais: "Asturias", nombre: "Día de Asturias", fecha: "2025-09-08", tipo: "Autonómico" },
 
   // Cantabria
-  { "pais": "Cantabria", "nombre": "Día de Cantabria", "fecha": "2025-08-28", "tipo": "Autonómico" },
+  { pais: "Cantabria", nombre: "Día de Cantabria", fecha: "2025-08-28", tipo: "Autonómico" },
 
   // Murcia
-  { "pais": "Murcia", "nombre": "Día de la Región de Murcia", "fecha": "2025-06-09", "tipo": "Autonómico" },
+  { pais: "Murcia", nombre: "Día de la Región de Murcia", fecha: "2025-06-09", tipo: "Autonómico" },
 
   // La Rioja
-  { "pais": "La Rioja", "nombre": "Día de La Rioja", "fecha": "2025-06-09", "tipo": "Autonómico" },
+  { pais: "La Rioja", nombre: "Día de La Rioja", fecha: "2025-06-09", tipo: "Autonómico" },
 
   // Navarra
-  { "pais": "Navarra", "nombre": "Día de Navarra", "fecha": "2025-12-03", "tipo": "Autonómico" },
+  { pais: "Navarra", nombre: "Día de Navarra", fecha: "2025-12-03", tipo: "Autonómico" },
 
   // Ceuta y Melilla
-  { "pais": "Ceuta", "nombre": "Día de Ceuta", "fecha": "2025-11-02", "tipo": "Autonómico" },
-  { "pais": "Melilla", "nombre": "Día de Melilla", "fecha": "2025-09-17", "tipo": "Autonómico" },
+  { pais: "Ceuta", nombre: "Día de Ceuta", fecha: "2025-11-02", tipo: "Autonómico" },
+  { pais: "Melilla", nombre: "Día de Melilla", fecha: "2025-09-17", tipo: "Autonómico" },
 
   // Festivo de Prueba
-  { "pais": "España", "nombre": "Festivo de Prueba", "fecha": "2025-04-29", "tipo": "Prueba" }
+  { pais: "España", nombre: "NO FUIMOS", fecha: "2025-04-29", tipo: "Prueba" }
+];
+
       
     ];
 
