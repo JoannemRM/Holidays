@@ -1,9 +1,26 @@
 <script>
-  const festivos = [ /* ... tus festivos aquí ... */ ];
+  // Fecha actual
+  const hoy = new Date();
+
+  // Función para crear fechas de prueba
+  function crearFechaFutura(dias) {
+    const d = new Date();
+    d.setDate(d.getDate() + dias);
+    return d.toISOString().split("T")[0];
+  }
+
+  // Festivos reales + de prueba
+  const festivos = [
+    { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
+    { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
+    // Festivos de prueba
+    { pais: "🔔 Prueba", nombre: "Festivo de prueba (5 días)", fecha: crearFechaFutura(5), tipo: "Prueba" },
+    { pais: "🔔 Prueba", nombre: "Festivo de prueba (2 días)", fecha: crearFechaFutura(2), tipo: "Prueba" },
+  ];
 
   const lista = document.getElementById("festivos");
 
-  // Mostrar los festivos
+  // Mostrar los festivos en la lista
   festivos.forEach(f => {
     const item = document.createElement("li");
     item.className = "bg-white p-4 rounded shadow hover:shadow-lg transition";
@@ -14,16 +31,17 @@
     lista.appendChild(item);
   });
 
+  // Pedir permiso de notificaciones
   if ("Notification" in window && Notification.permission !== "granted") {
     Notification.requestPermission();
   }
 
-  // Recuperar o inicializar notificaciones mostradas en esta sesión
-  const notificados = JSON.parse(sessionStorage.getItem("notificadosFestivos") || "{}");
+  // Almacenamiento local para no repetir notificaciones
+  const notificados = JSON.parse(localStorage.getItem("notificadosFestivos") || "{}");
 
   function guardarNotificado(id) {
     notificados[id] = true;
-    sessionStorage.setItem("notificadosFestivos", JSON.stringify(notificados));
+    localStorage.setItem("notificadosFestivos", JSON.stringify(notificados));
   }
 
   function revisarNotificaciones() {
@@ -41,17 +59,17 @@
         let fechaAviso = new Date(fechaFestivo);
         fechaAviso.setDate(fechaAviso.getDate() - diasAntes);
 
-        // Ajustar si cae en fin de semana
+        // Si cae en fin de semana, adelantar al viernes
         const diaSemana = fechaAviso.getDay();
-        if (diaSemana === 6) fechaAviso.setDate(fechaAviso.getDate() - 1); // sábado → viernes
-        else if (diaSemana === 0) fechaAviso.setDate(fechaAviso.getDate() - 2); // domingo → viernes
+        if (diaSemana === 6) fechaAviso.setDate(fechaAviso.getDate() - 1); // sábado
+        else if (diaSemana === 0) fechaAviso.setDate(fechaAviso.getDate() - 2); // domingo
 
         const fechaAvisoStr = fechaAviso.toISOString().split("T")[0];
 
         if (hoyStr === fechaAvisoStr && !notificados[id]) {
           new Notification(`🎉 Festivo en ${f.pais}`, {
             body: `${f.nombre} es el ${f.fecha}`,
-            requireInteraction: true
+            requireInteraction: true // No se cierra automáticamente
           });
           guardarNotificado(id);
         }
