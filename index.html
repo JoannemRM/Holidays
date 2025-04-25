@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Festivos UK 2025</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Notificador de Festivos</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-50 text-gray-800 font-sans">
-
-  <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold mb-4 text-center">🇬🇧 Días Festivos en UK - 2025</h1>
-    <p class="text-center text-sm mb-6 text-gray-600">Recibirás notificaciones 5 y 2 días antes de un festivo (solo una vez).</p>
-    <ul id="festivos" class="space-y-4"></ul>
+<body class="bg-blue-50 text-gray-800 min-h-screen flex flex-col items-center justify-center p-6">
+  <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-3xl">
+    <h1 class="text-3xl font-bold mb-4 text-center">📅 Notificador de Festivos</h1>
+    <div id="mensajeDiario" class="text-xl text-center mb-4 font-semibold text-blue-700"></div>
+    <div class="overflow-auto">
+      <table class="w-full table-auto border">
+        <thead>
+          <tr class="bg-blue-200 text-left">
+            <th class="p-2">País</th>
+            <th class="p-2">Nombre</th>
+            <th class="p-2">Fecha</th>
+            <th class="p-2">Tipo</th>
+          </tr>
+        </thead>
+        <tbody id="tablaFestivos"></tbody>
+      </table>
+    </div>
   </div>
 
   <script>
-    // Fecha actual
-    const hoy = new Date();
-
-    // Crear fechas de prueba
-    function crearFechaFutura(dias) {
-      const d = new Date();
-      d.setDate(d.getDate() + dias);
-      return d.toISOString().split("T")[0];
-    }
-
-    // Festivos reales + de prueba
     const festivos = [
+      // Reino Unido
       { pais: "Inglaterra y Gales", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
       { pais: "Inglaterra y Gales", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
       { pais: "Inglaterra y Gales", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
@@ -33,13 +35,15 @@
       { pais: "Inglaterra y Gales", nombre: "Summer bank holiday", fecha: "2025-08-25", tipo: "Nacional" },
       { pais: "Inglaterra y Gales", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
       { pais: "Inglaterra y Gales", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
+
       { pais: "Escocia", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
       { pais: "Escocia", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
       { pais: "Escocia", nombre: "Spring bank holiday", fecha: "2025-05-26", tipo: "Nacional" },
       { pais: "Escocia", nombre: "Summer bank holiday", fecha: "2025-08-04", tipo: "Nacional" },
-      { pais: "Escocia", nombre: "St Andrew’s Day (substitute)", fecha: "2025-12-01", tipo: "Nacional" },
+      { pais: "Escocia", nombre: "St Andrew’s Day", fecha: "2025-12-01", tipo: "Nacional" },
       { pais: "Escocia", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
       { pais: "Escocia", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
+
       { pais: "Irlanda del Norte", nombre: "Good Friday", fecha: "2025-04-18", tipo: "Nacional" },
       { pais: "Irlanda del Norte", nombre: "Easter Monday", fecha: "2025-04-21", tipo: "Nacional" },
       { pais: "Irlanda del Norte", nombre: "Early May bank holiday", fecha: "2025-05-05", tipo: "Nacional" },
@@ -49,144 +53,98 @@
       { pais: "Irlanda del Norte", nombre: "Christmas Day", fecha: "2025-12-25", tipo: "Nacional" },
       { pais: "Irlanda del Norte", nombre: "Boxing Day", fecha: "2025-12-26", tipo: "Nacional" },
 
-      // Festivos de prueba
-      { pais: "🔔 Prueba", nombre: "Festivo de prueba (5 días)", fecha: crearFechaFutura(5), tipo: "Prueba" },
-      { pais: "🔔 Prueba", nombre: "Festivo de prueba (2 días)", fecha: crearFechaFutura(2), tipo: "Prueba" },
-  
-  // Festivos Nacionales España
-  { pais: "España", nombre: "Año Nuevo", fecha: "2025-01-01", tipo: "Nacional" },
-  { pais: "España", nombre: "Epifanía del Señor (Día de Reyes)", fecha: "2025-01-06", tipo: "Nacional" },
-  { pais: "España", nombre: "Viernes Santo", fecha: "2025-04-18", tipo: "Nacional" },
-  { pais: "España", nombre: "Fiesta del Trabajo", fecha: "2025-05-01", tipo: "Nacional" },
-  { pais: "España", nombre: "Asunción de la Virgen", fecha: "2025-08-15", tipo: "Nacional" },
-  { pais: "España", nombre: "Fiesta Nacional de España", fecha: "2025-10-12", tipo: "Nacional" },
-  { pais: "España", nombre: "Todos los Santos", fecha: "2025-11-01", tipo: "Nacional" },
-  { pais: "España", nombre: "Día de la Constitución Española", fecha: "2025-12-06", tipo: "Nacional" },
-  { pais: "España", nombre: "Inmaculada Concepción", fecha: "2025-12-08", tipo: "Nacional" },
-  { pais: "España", nombre: "Navidad", fecha: "2025-12-25", tipo: "Nacional" },
+      // España - Nacional
+      { pais: "España", nombre: "Año Nuevo", fecha: "2025-01-01", tipo: "Nacional" },
+      { pais: "España", nombre: "Día de Reyes", fecha: "2025-01-06", tipo: "Nacional" },
+      { pais: "España", nombre: "Viernes Santo", fecha: "2025-04-18", tipo: "Nacional" },
+      { pais: "España", nombre: "Fiesta del Trabajo", fecha: "2025-05-01", tipo: "Nacional" },
+      { pais: "España", nombre: "Asunción de la Virgen", fecha: "2025-08-15", tipo: "Nacional" },
+      { pais: "España", nombre: "Fiesta Nacional de España", fecha: "2025-10-12", tipo: "Nacional" },
+      { pais: "España", nombre: "Todos los Santos", fecha: "2025-11-01", tipo: "Nacional" },
+      { pais: "España", nombre: "Constitución Española", fecha: "2025-12-06", tipo: "Nacional" },
+      { pais: "España", nombre: "Inmaculada Concepción", fecha: "2025-12-08", tipo: "Nacional" },
+      { pais: "España", nombre: "Navidad", fecha: "2025-12-25", tipo: "Nacional" },
 
-  // Andalucía
-  { pais: "Andalucía", nombre: "Día de Andalucía", fecha: "2025-02-28", tipo: "Autonómico" },
-  { pais: "Andalucía", nombre: "Día de la Virgen de la Macarena", fecha: "2025-12-08", tipo: "Autonómico" },
+      // España - Cataluña y Madrid
+      { pais: "Cataluña", nombre: "Día de Sant Jordi", fecha: "2025-04-23", tipo: "Autonómico" },
+      { pais: "Cataluña", nombre: "Día de la Mercè", fecha: "2025-09-24", tipo: "Autonómico" },
+      { pais: "Madrid", nombre: "Comunidad de Madrid", fecha: "2025-05-02", tipo: "Autonómico" },
+      { pais: "Madrid", nombre: "San Isidro", fecha: "2025-05-15", tipo: "Autonómico" },
 
-  // Cataluña
-  { pais: "Cataluña", nombre: "Día de Sant Jordi", fecha: "2025-04-23", tipo: "Autonómico" },
-  { pais: "Cataluña", nombre: "Día de la Mercè", fecha: "2025-09-24", tipo: "Autonómico" },
-
-  // Comunidad Valenciana
-  { pais: "Comunidad Valenciana", nombre: "Las Fallas", fecha: "2025-03-19", tipo: "Autonómico" },
-  { pais: "Comunidad Valenciana", nombre: "Día de la Comunidad Valenciana", fecha: "2025-10-09", tipo: "Autonómico" },
-
-  // Madrid
-  { pais: "Madrid", nombre: "Fiesta de la Comunidad de Madrid", fecha: "2025-05-02", tipo: "Autonómico" },
-  { pais: "Madrid", nombre: "Día de San Isidro", fecha: "2025-05-15", tipo: "Autonómico" },
-
-  // Galicia
-  { pais: "Galicia", nombre: "Día de Galicia", fecha: "2025-07-25", tipo: "Autonómico" },
-
-  // Castilla y León
-  { pais: "Castilla y León", nombre: "Día de Castilla y León", fecha: "2025-04-23", tipo: "Autonómico" },
-
-  // Castilla-La Mancha
-  { pais: "Castilla-La Mancha", nombre: "Día de Castilla-La Mancha", fecha: "2025-05-31", tipo: "Autonómico" },
-
-  // País Vasco
-  { pais: "País Vasco", nombre: "Día de Euskadi", fecha: "2025-10-25", tipo: "Autonómico" },
-
-  // Aragón
-  { pais: "Aragón", nombre: "Día de Aragón", fecha: "2025-04-23", tipo: "Autonómico" },
-
-  // Extremadura
-  { pais: "Extremadura", nombre: "Día de Extremadura", fecha: "2025-09-08", tipo: "Autonómico" },
-
-  // Baleares
-  { pais: "Islas Baleares", nombre: "Día de las Islas Baleares", fecha: "2025-03-01", tipo: "Autonómico" },
-
-  // Asturias
-  { pais: "Asturias", nombre: "Día de Asturias", fecha: "2025-09-08", tipo: "Autonómico" },
-
-  // Cantabria
-  { pais: "Cantabria", nombre: "Día de Cantabria", fecha: "2025-08-28", tipo: "Autonómico" },
-
-  // Murcia
-  { pais: "Murcia", nombre: "Día de la Región de Murcia", fecha: "2025-06-09", tipo: "Autonómico" },
-
-  // La Rioja
-  { pais: "La Rioja", nombre: "Día de La Rioja", fecha: "2025-06-09", tipo: "Autonómico" },
-
-  // Navarra
-  { pais: "Navarra", nombre: "Día de Navarra", fecha: "2025-12-03", tipo: "Autonómico" },
-
-  // Ceuta y Melilla
-  { pais: "Ceuta", nombre: "Día de Ceuta", fecha: "2025-11-02", tipo: "Autonómico" },
-  { pais: "Melilla", nombre: "Día de Melilla", fecha: "2025-09-17", tipo: "Autonómico" },
-
-  // Festivo de Prueba
-  { pais: "España", nombre: "NO FUIMOS", fecha: "2025-04-29", tipo: "Prueba" }
-      
+      // Francia
+      { pais: "Francia", nombre: "Jour de l'An", fecha: "2025-01-01", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Lundi de Pâques", fecha: "2025-04-21", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Fête du Travail", fecha: "2025-05-01", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Victoire 1945", fecha: "2025-05-08", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Ascension", fecha: "2025-05-29", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Pentecôte", fecha: "2025-06-09", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Fête Nationale", fecha: "2025-07-14", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Assomption", fecha: "2025-08-15", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Toussaint", fecha: "2025-11-01", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Armistice 1918", fecha: "2025-11-11", tipo: "Nacional" },
+      { pais: "Francia", nombre: "Noël", fecha: "2025-12-25", tipo: "Nacional" },
     ];
 
-    const lista = document.getElementById("festivos");
+    const frases = [
+      "Buenos días guap@! Comete el mundo 🌍",
+      "Hoy va a ser un día genial, ¡ya lo verás!",
+      "Haz que cada momento cuente.",
+      "Sonríe, lo estás haciendo bien.",
+      "Confía en ti, ¡puedes con todo!",
+      "El éxito comienza con una actitud positiva.",
+      "¡Hoy tienes la oportunidad de brillar!",
+      "Lo mejor está por venir.",
+      "Cree en tu magia ✨",
+      "Empieza el día con energía, tú puedes."
+    ];
 
-    // Mostrar los festivos
+    // Mostrar frases motivadoras
+    document.getElementById("mensajeDiario").textContent = frases[Math.floor(Math.random() * frases.length)];
+
+    // Mostrar tabla
+    const tbody = document.getElementById("tablaFestivos");
     festivos.forEach(f => {
-      const item = document.createElement("li");
-      item.className = "bg-white p-4 rounded shadow hover:shadow-lg transition";
-      item.innerHTML = `
-        <div class="text-xl font-semibold">${f.nombre}</div>
-        <div class="text-sm text-gray-600">${f.pais} · ${f.fecha} · ${f.tipo}</div>
-      `;
-      lista.appendChild(item);
+      const tr = document.createElement("tr");
+      tr.className = "border-t";
+      tr.innerHTML = `<td class="p-2">${f.pais}</td><td class="p-2">${f.nombre}</td><td class="p-2">${f.fecha}</td><td class="p-2">${f.tipo}</td>`;
+      tbody.appendChild(tr);
     });
 
-    // Pedir permiso para notificaciones
-    if ("Notification" in window && Notification.permission !== "granted") {
-      Notification.requestPermission();
+    // Notificaciones
+    function pedirPermiso() {
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
     }
 
-    // Guardar notificaciones mostradas
-    const notificados = JSON.parse(localStorage.getItem("notificadosFestivos") || "{}");
-
-    function guardarNotificado(id) {
-      notificados[id] = true;
-      localStorage.setItem("notificadosFestivos", JSON.stringify(notificados));
-    }
-
-    function revisarNotificaciones() {
+    function programarNotificaciones() {
       const hoy = new Date();
-      const hoyStr = hoy.toISOString().split("T")[0];
-
       festivos.forEach(f => {
-        const fechaFestivo = new Date(f.fecha);
-        const avisos = [
-          { diasAntes: 5, id: `${f.fecha}_5` },
-          { diasAntes: 2, id: `${f.fecha}_2` }
-        ];
+        const fecha = new Date(f.fecha);
+        const notiDate = new Date(fecha);
+        notiDate.setDate(notiDate.getDate() - 5);
 
-        avisos.forEach(({ diasAntes, id }) => {
-          let fechaAviso = new Date(fechaFestivo);
-          fechaAviso.setDate(fechaAviso.getDate() - diasAntes);
-
-          // Ajustar si cae en sábado o domingo
-          const diaSemana = fechaAviso.getDay();
-          if (diaSemana === 6) fechaAviso.setDate(fechaAviso.getDate() - 1);
-          else if (diaSemana === 0) fechaAviso.setDate(fechaAviso.getDate() - 2);
-
-          const fechaAvisoStr = fechaAviso.toISOString().split("T")[0];
-
-          if (hoyStr === fechaAvisoStr && !notificados[id]) {
-            new Notification(`🎉 Festivo en ${f.pais}`, {
-              body: `${f.nombre} es el ${f.fecha}`,
-              requireInteraction: true // Se mantiene visible hasta que se cierre
-            });
-            guardarNotificado(id);
-          }
-        });
+        if (notiDate.toDateString() === hoy.toDateString()) {
+          new Notification(`¡Se acerca un festivo!`, {
+            body: `${f.nombre} (${f.pais}) es el ${f.fecha} (${f.tipo})`
+          });
+        }
       });
+
+      // Mensaje sorpresa de los miércoles
+      const dia = hoy.getDay();
+      if (dia === 3) {
+        const hora = hoy.getHours();
+        if (hora >= 10 && hora <= 16 && Math.random() < 0.1) {
+          new Notification("🎉 ¡Sorpresa!", {
+            body: "¡Ya casi es viernes, estás a nada de un merecido descanso!"
+          });
+        }
+      }
     }
 
-    revisarNotificaciones();
-    setInterval(revisarNotificaciones, 60 * 1000);
+    pedirPermiso();
+    setTimeout(programarNotificaciones, 2000);
   </script>
 </body>
 </html>
