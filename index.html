@@ -3,14 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <title>Notificador de Festivos y Motivación</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Notificador Activo</h1>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-start p-6">
+  <h1 class="text-3xl font-bold mb-4 text-blue-700">🎉 Notificador Activo</h1>
+  <div id="listaFestivos" class="bg-white shadow-md rounded-lg p-6 w-full max-w-3xl"></div>
+
   <script>
+    function getFutureDate(daysFromNow) {
+      const date = new Date();
+      date.setDate(date.getDate() + daysFromNow);
+      return date.toISOString().split('T')[0];
+    }
+
     const festivos = [
       // Festivos de prueba
-      { pais: "Prueba", nombre: "Día de prueba 1", fecha: getFutureDate(2), tipo: "Prueba" },
-      { pais: "Prueba", nombre: "Día de prueba 2", fecha: getFutureDate(5), tipo: "Prueba" },
+      { pais: "Prueba", nombre: "Día de prueba 1", fecha: getFutureDate(0), tipo: "Prueba" },
+      { pais: "Prueba", nombre: "Día de prueba 2", fecha: getFutureDate(1), tipo: "Prueba" },
 
       // España Nacionales
       { pais: "España", nombre: "Año Nuevo", fecha: "2025-01-01", tipo: "Nacional" },
@@ -59,17 +68,19 @@
       "Las pequeñas acciones crean grandes resultados."
     ];
 
-    function getFutureDate(daysFromNow) {
-      const date = new Date();
-      date.setDate(date.getDate() + daysFromNow);
-      return date.toISOString().split('T')[0];
+    function showNotification(title, body) {
+      if (Notification.permission === "granted") {
+        new Notification(title, { body });
+      }
     }
 
     function checkFestivos() {
       const hoy = new Date().toISOString().split('T')[0];
       const manana = new Date(Date.now() + 86400000).toISOString().split('T')[0];
       festivos.forEach(f => {
-        if (f.fecha === manana) {
+        if (f.fecha === hoy) {
+          showNotification(`Hoy es festivo en ${f.pais}`, `${f.nombre} (${f.tipo})`);
+        } else if (f.fecha === manana) {
           showNotification(`Mañana es festivo en ${f.pais}`, `${f.nombre} (${f.tipo})`);
         }
       });
@@ -91,10 +102,16 @@
       }
     }
 
-    function showNotification(title, body) {
-      if (Notification.permission === "granted") {
-        new Notification(title, { body });
-      }
+    function mostrarListadoFestivos() {
+      const lista = document.getElementById("listaFestivos");
+      lista.innerHTML = "<h2 class='text-2xl font-semibold mb-4'>📅 Lista de Festivos</h2>";
+      festivos.sort((a, b) => a.fecha.localeCompare(b.fecha)).forEach(f => {
+        lista.innerHTML += `
+          <div class="border-b border-gray-200 py-2">
+            <p><span class="font-bold">${f.fecha}</span> - ${f.nombre} (${f.tipo}) en <span class="text-blue-600">${f.pais}</span></p>
+          </div>
+        `;
+      });
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -102,14 +119,10 @@
         Notification.requestPermission();
       }
 
-      // Mensaje diario
       mensajeDiario();
-
-      // Revisa si mañana hay festivo
       checkFestivos();
-
-      // Revisa el mensaje sorpresa (miércoles)
       mensajeSorpresaMiercoles();
+      mostrarListadoFestivos();
     });
   </script>
 </body>
