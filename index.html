@@ -18,8 +18,8 @@
 
     const festivos = [
       // Festivos de prueba
-      { pais: "Prueba", nombre: "Día de prueba 1", fecha: getFutureDate(0), tipo: "Prueba" },
-      { pais: "Prueba", nombre: "Día de prueba 2", fecha: getFutureDate(1), tipo: "Prueba" },
+      { pais: "Prueba", nombre: "Día de prueba 5 días", fecha: getFutureDate(5), tipo: "Prueba" },
+      { pais: "Prueba", nombre: "Día de prueba 2 días", fecha: getFutureDate(2), tipo: "Prueba" },
 
       // España Nacionales
       { pais: "España", nombre: "Año Nuevo", fecha: "2025-01-01", tipo: "Nacional" },
@@ -75,13 +75,23 @@
     }
 
     function checkFestivos() {
-      const hoy = new Date().toISOString().split('T')[0];
-      const manana = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+      const hoy = new Date();
+      const hoyISO = hoy.toISOString().split('T')[0];
+
+      const dosDiasDespues = new Date();
+      dosDiasDespues.setDate(hoy.getDate() + 2);
+      const dosDiasISO = dosDiasDespues.toISOString().split('T')[0];
+
+      const cincoDiasDespues = new Date();
+      cincoDiasDespues.setDate(hoy.getDate() + 5);
+      const cincoDiasISO = cincoDiasDespues.toISOString().split('T')[0];
+
       festivos.forEach(f => {
-        if (f.fecha === hoy) {
-          showNotification(`Hoy es festivo en ${f.pais}`, `${f.nombre} (${f.tipo})`);
-        } else if (f.fecha === manana) {
-          showNotification(`Mañana es festivo en ${f.pais}`, `${f.nombre} (${f.tipo})`);
+        if (f.fecha === dosDiasISO) {
+          showNotification(`⏰ Faltan 2 días: ${f.nombre}`, `En ${f.pais} (${f.tipo})`);
+        }
+        if (f.fecha === cincoDiasISO) {
+          showNotification(`⏰ Faltan 5 días: ${f.nombre}`, `En ${f.pais} (${f.tipo})`);
         }
       });
     }
